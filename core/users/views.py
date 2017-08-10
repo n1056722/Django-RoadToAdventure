@@ -187,28 +187,27 @@ def getChatList(request):
     lastChatId = data['lastChatId']
     try:
         chats = []
-        selfChats = Chat.objects.select_related('CreateUser').filter(CreateUser__UserID = userId and FriendUser__UserID = friendId)
-        otherChats = Chat.objects.select_related('CreateUser').filter(CreateUser__UserID = friendId and FriendUser__UserID = userId)
+        selfChats = Chat.objects.select_related('CreateUser').filter(CreateUser__UserID = userId  , FriendUser__UserID = friendId)
+        otherChats = Chat.objects.select_related('CreateUser').filter(CreateUser__UserID = friendId , FriendUser__UserID = userId)
         for sc in selfChats:
-            if sc.ChatId > lastChatId:
-                
+            if sc.ChatID > lastChatId:                
                 chat = {}
-                chat['chatId'] = sc.Chat.ChatId
-                chat['userId'] = sc.Chat.UserID
-                chat['userName'] = sc.Chat.UserName
-                chat['content'] = sc.Chat.Content
-                chat['createDate'] = sc.Chat.CreateDate
-                chats.append(sc)
+                chat['chatId'] = sc.ChatID
+                chat['userId'] = sc.CreateUser.UserID
+                chat['userName'] = sc.CreateUser.UserName
+                chat['content'] = sc.Content
+                chat['createDate'] = str(sc.CreateDate)
+                chats.append(chat)
 
         for oc in otherChats:
-            if oc.ChatId > lastChatId:
+            if oc.ChatID > lastChatId:
                 chat = {}
-                chat['chatId'] = oc.Chat.ChatId
-                chat['userId'] = oc.Chat.UserID
-                chat['userName'] = oc.Chat.UserName
-                chat['content'] = oc.Chat.Content
-                chat['createDate'] = oc.Chat.CreateDate
-                chats.append(oc)
+                chat['chatId'] = oc.ChatID
+                chat['userId'] = oc.CreateUser.UserID
+                chat['userName'] = oc.CreateUser.UserName
+                chat['content'] = oc.Content
+                chat['createDate'] = str(oc.CreateDate)
+                chats.append(chat)
                            
         result['chats'] = chats
         result['result'] = 1 if len(chats) > 0 else 0
