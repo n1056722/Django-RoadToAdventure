@@ -29,8 +29,9 @@ urlpatterns = [
     #url(r'^Picture/create', views_users.create, name='users_create'),
     url(r'^Friend/create', views_users.createFriend, name='users_createFriend'),
     url(r'^Friend/delete', views_users.deleteFriend, name='users_deleteFriend'),
-    #url(r'^Friend/getList', views_users.getList, name='users_getList'),
-    #url(r'^FriendChat/create', views_users.createFriendChat, name='users_create'),
-    #url(r'^FriendChat/getList', views_users.getList, name='users_getList'),
+    url(r'^Friend/getStrangerList', views_users.getStrangerList, name='users_getStrangerList'),
+    url(r'^Friend/getFriendList', views_users.getFriendList, name='users_getFriendList'),
+    url(r'^FriendChat/createFriendChat', views_users.createFriendChat, name='users_createFriendChat'),
+    #url(r'^FriendChat/getChatList', views_users.getChatList, name='users_getChatList'),
     url(r'^admin/', admin.site.urls),
 ]

@@ -28,14 +28,14 @@ class Chat(models.Model):
     CreateDate = models.DateTimeField()
 
     def __str__(self):
-        return self.Content
+        return self.CreateUser.UserName + '-' + self.FriendUser.UserName +'-'+ self.Content
 
 class UserFriend(models.Model):
     UserFriendID = models.AutoField(primary_key=True)
-    CreateUser = models.OneToOneField(UserAccount, on_delete=models.PROTECT, related_name='UserFriend_CreateUser')
-    FriendUser = models.OneToOneField(UserAccount, on_delete=models.PROTECT, related_name='UserFriend_FriendUser')
+    CreateUser = models.ForeignKey(UserAccount, on_delete=models.PROTECT, related_name='UserFriend_CreateUser')
+    FriendUser = models.ForeignKey(UserAccount, on_delete=models.PROTECT, related_name='UserFriend_FriendUser')
     CreateDate = models.DateTimeField()
 
     def __str__(self):
-        return self.Friend
-        #
+        return self.CreateUser.UserName + '-' + self.FriendUser.UserName
+        
