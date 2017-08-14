@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from users import views as views_users
-
+from personalJourneys import views as views_personalJourney
 #from personalJourneys import views as views_pj
 urlpatterns = [
     url(r'^$', views_users.index, name='index'),
@@ -33,5 +33,8 @@ urlpatterns = [
     url(r'^Friend/getFriendList', views_users.getFriendList, name='users_getFriendList'),
     url(r'^FriendChat/createFriendChat', views_users.createFriendChat, name='users_createFriendChat'),
     url(r'^FriendChat/getChatList', views_users.getChatList, name='users_getChatList'),
+    url(r'^PersonalJourney/Create', views_personalJourney.Create, name='personalJourneys_Create'),
+    #url(r'^PersonalJourney/Update', views_personalJourneys.Update, name='personalJourneys_Update'),
+    #url(r'^PersonalJourney/getList', views_personalJourneys.getList, name='personalJourneys_getList'),
     url(r'^admin/', admin.site.urls),
 ]

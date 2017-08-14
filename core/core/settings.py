@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'authority',
     'users',
-    #'personalJourneys',
+    'personalJourneys',
     #'groups',
     #'groupJourneys',
 ]

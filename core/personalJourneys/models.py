@@ -5,10 +5,9 @@ from django.db import models
 from users.models import *
 
 # Create your models here.
-"""
+
 class PersonalJourney(models.Model):
-    PersonalJourneyID = models.IntegerField(primary_key=True)
-    User = models.ForeignKey(UserAccount,primary_key=True,max_length=20,on_delete=models.PROTECT)
+    PersonalJourneyID = models.AutoField(primary_key=True)
     PersonalJourneyName = models.CharField(max_length=50)
     PersonalJourneyContent = models.TextField()
     Points = models.TextField()
@@ -16,14 +15,12 @@ class PersonalJourney(models.Model):
     IsOpen = models.CharField(max_length=1)
     StartTime = models.DateTimeField()
     EndTime = models.DateTimeField()
-    Create = models.ForeignKey(UserAccount,on_delete=models.PROTECT,max_length=20)
+    CreateUser = models.ForeignKey(UserAccount,on_delete=models.PROTECT,related_name='PersonalJourney_CreateUser')
     CreateDate = models.DateTimeField()
-    Modify = models.ForeignKey(UserAccount,on_delete=models.PROTECT,max_length=20)
-    ModifyDate = models.DateTimeField()
-
+   
     def __str__(self):
         return self.PersonalJourneyName
-
+"""
 class PersonalJourneyPicture(models.Model):
     PersonalJourneyPictureID = models.IntegerField(primary_key=True)
     PersonalJourney = models.ForeignKey(PersonalJourney,primary_key=True,on_delete=models.PROTECT)
@@ -34,23 +31,23 @@ class PersonalJourneyPicture(models.Model):
     def __str__(self):
         return self.PictureName
 
-class PersonalJourneyCommon(models.Model):
-    PersonalJourneyCommonID = models.IntegerField(primary_key=True)
-    PersonalJourney = models.ForeignKey(PersonalJourney,primary_key=True,on_delete=models.PROTECT)
-    Common = models.TextField()
-    Create = models.ForeignKey(UserAccount,on_delete=models.PROTECT,max_length=20)
+class PersonalJourneyComment(models.Model):
+    PersonalJourneyCommentID = models.AutoField(primary_key=True)
+    PersonalJourney = models.ForeignKey(PersonalJourney,on_delete=models.PROTECT,related_name='PersonalJourneyComment_personalJourney')
+    Comment = models.TextField()
+    CreateUser = models.ForeignKey(UserAccount,on_delete=models.PROTECT,related_name='PersonalJourneyComment_CreateUser')
     CreateDate = models.DateTimeField()
 
     def __str__(self):
-        return self.Common
+        return self.Comment
 
 class PersonalJourneyDetail(models.Model):
-    PersonalJourney = models.ForeignKey(UserAccount,primary_key=True,on_delete=models.PROTECT,max_length=20)
-    User = models.ForeignKey(UserAccount,primary_key=True,max_length=20,on_delete=models.PROTECT)
+    PersonalJourney = models.AutoField(primary_key=True)
     CreateDate = models.DateTimeField(primary_key=True)
     Latitude = models.CharField(max_length=30)
     Longitude = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.CreateDate
+        return self.PersonalJourney
+
 """
