@@ -32,34 +32,24 @@ class PersonalJourney(models.Model):
    
     def __str__(self):
         return self.PersonalJourneyName
-"""
-class PersonalJourneyPicture(models.Model):
-    PersonalJourneyPictureID = models.IntegerField(primary_key=True)
-    PersonalJourney = models.ForeignKey(PersonalJourney,primary_key=True,on_delete=models.PROTECT)
-    PictureName = models.CharField(max_length=200)
-    Create = models.ForeignKey(UserAccount,on_delete=models.PROTECT,max_length=20)
-    CreateDate = models.DateTimeField()
 
-    def __str__(self):
-        return self.PictureName
 
 class PersonalJourneyComment(models.Model):
     PersonalJourneyCommentID = models.AutoField(primary_key=True)
-    PersonalJourney = models.ForeignKey(PersonalJourney,on_delete=models.PROTECT,related_name='PersonalJourneyComment_personalJourney')
+    PersonalJourney = models.ForeignKey(PersonalJourney, on_delete=models.PROTECT, related_name='PersonalJourneyComment_personalJourney')
     Comment = models.TextField()
-    CreateUser = models.ForeignKey(UserAccount,on_delete=models.PROTECT,related_name='PersonalJourneyComment_CreateUser')
+    CreateUser = models.ForeignKey(UserAccount, on_delete=models.PROTECT, related_name='PersonalJourneyComment_CreateUser')
     CreateDate = models.DateTimeField()
 
     def __str__(self):
         return self.Comment
 
 class PersonalJourneyDetail(models.Model):
-    PersonalJourney = models.AutoField(primary_key=True)
-    CreateDate = models.DateTimeField(primary_key=True)
+    PersonalJourneyDetailID = models.AutoField(primary_key=True)
+    PersonalJourney = models.ForeignKey(PersonalJourney, on_delete=models.PROTECT, related_name='PersonalJourneyDetail_personalJourney')
     Latitude = models.CharField(max_length=30)
     Longitude = models.CharField(max_length=30)
+    CreateDate = models.DateTimeField()
 
     def __str__(self):
-        return self.PersonalJourney
-
-"""
+        return self.Latitude + '-' + self.Longitude

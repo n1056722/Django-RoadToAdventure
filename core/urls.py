@@ -41,6 +41,11 @@ urlpatterns = [
 
     url(r'^PersonalJourney/Create', views_personalJourney.createPersonalJourney, name='personalJourneys_createPersonalJourney'),
     url(r'^PersonalJourney/Update', views_personalJourney.updatePersonalJourney, name='personalJourneys_updatePersonalJourney'),
+    url(r'^PersonalJourney/GetList', views_personalJourney.getPersonalJourneyList, name='personalJourneys_getPersonalJourneyList'),
+    url(r'^PersonalJourney/Get', views_personalJourney.getPersonalJourney, name='personalJourneys_getPersonalJourney'),
+    url(r'^PersonalJourneyComment/Create', views_personalJourney.createPersonalJourneyComment, name='personalJourneys_createPersonalJourneyComment'),
+    url(r'^PersonalJourneyDetail/Create', views_personalJourney.createPersonalJourneyDetail, name='personalJourneys_createPersonalJourneyDetail'),
+    url(r'^PersonalJourneyDetail/GetAll', views_personalJourney.getAllPersonalJourneyDetail, name='personalJourneys_getPersonalJourneyDetailList'),
 
     url(r'^admin/', admin.site.urls),
 ] + static('/images/', document_root = settings.MEDIA_ROOT)
