@@ -155,14 +155,11 @@ def getStrangerList(request):
                 stranger['userId'] = of.CreateUser.UserID
                 stranger['userName'] = of.CreateUser.UserName
                 strangers.append(stranger)
-        result['strangers'] = stranger
-        result['result'] = 1 if len(stranger) > 0 else 0
+        result['strangers'] = strangers
+        result['result'] = 1 if len(strangers) > 0 else 0
     except Exception as e:
         result['message'] = str(e)
     return JsonResponse(result)
-
-
-
 
 def getFriendList(request):
     result = {'result': 0}
@@ -181,26 +178,25 @@ def getFriendList(request):
         result['message'] = str(e)
     return JsonResponse(result)
 
-
-
 def createFriendChat(request):
     result = {'result': 0}
     data = json.loads(request.body.decode("utf-8"))
-    createId = data['createId']
+    userId = data['userId']
     friendId = data['friendId']
     content = data['content']
     try:
-        u = UserAccount.objects.get(UserID = createId)
+        u = UserAccount.objects.get(UserID = userId)
         uf = UserAccount.objects.get(UserID = friendId)
-        now = datetime.datetime.now().replace(microsecond=0)
-        Chat.objects.create(CreateUser = u,FriendUser = uf,Content = content,CreateDate = now)
+        Chat.objects.create(
+            CreateUser = u,
+            FriendUser = uf,
+            Content = content,
+            CreateDate = now()
+        )
         result['result'] = 1
     except Exception as e:
         result['message'] = str(e)
     return JsonResponse(result)
-
-
-
 
 def getChatList(request):     
     result = {'result': 0}
