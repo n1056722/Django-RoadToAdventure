@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     #'authority',
     'users',
     'personalJourneys',
-    #'groups',
+    'groups',
     #'groupJourneys',
 ]
 

@@ -19,11 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 # views
 from users import views as views_users
-from users import views as views_users
 from personalJourneys import views as views_personalJourney
-
+from groups import views as views_groups
 urlpatterns = [
     url(r'^$', views_users.index, name='index'),
+    url(r'^admin/', admin.site.urls),
     url(r'^Picture/Create', views_users.createPicture, name='users_create'),
 
     url(r'^User/Login', views_users.login, name='users_login'),
@@ -47,5 +47,14 @@ urlpatterns = [
     url(r'^PersonalJourneyDetail/Create', views_personalJourney.createPersonalJourneyDetail, name='personalJourneys_createPersonalJourneyDetail'),
     url(r'^PersonalJourneyDetail/GetAll', views_personalJourney.getAllPersonalJourneyDetail, name='personalJourneys_getPersonalJourneyDetailList'),
 
-    url(r'^admin/', admin.site.urls),
+    url(r'^Group/Create', views_groups.createGroup, name='groups_createGroup'),
+    url(r'^Group/Update', views_groups.updateGroup, name='groups_updateGroup'),
+    url(r'^Group/GetList', views_groups.getGroupList, name='groups_getGroupList'),
+    url(r'^Group/Get', views_groups.getGroup, name='groups_getGroup'),
+    url(r'^GroupUser/Create', views_groups.createGroupUser, name='groups_createGroupUser'),
+    url(r'^GroupUser/Update', views_groups.updateGroupUser, name='groups_updateGroupUser'),
+    url(r'^GroupUser/Delete', views_groups.deleteGroupUser, name='groups_deleteGroupUser'),
+    url(r'^GroupChat/Create', views_groups.createGroupChat, name='groups_createGroupChat'),
+    url(r'^GroupChat/GetList', views_groups.getGroupChatList, name='groups_getGroupChatList'),
+
 ] + static('/images/', document_root = settings.MEDIA_ROOT)

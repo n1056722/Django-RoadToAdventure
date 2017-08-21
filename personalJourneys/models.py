@@ -33,7 +33,6 @@ class PersonalJourney(models.Model):
     def __str__(self):
         return self.PersonalJourneyName
 
-
 class PersonalJourneyComment(models.Model):
     PersonalJourneyCommentID = models.AutoField(primary_key=True)
     PersonalJourney = models.ForeignKey(PersonalJourney, on_delete=models.PROTECT, related_name='PersonalJourneyComment_personalJourney')

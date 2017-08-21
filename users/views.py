@@ -265,4 +265,4 @@ def createPicture(request):
     return JsonResponse(result)
 
 def now():
-    return datetime.datetime.now().replace(microsecond=0)
+    return datetime.datetime.now().replace(microsecond = 0)
