@@ -14,39 +14,30 @@ import os
 def index(request):
     return HttpResponse("Home")
 
-def hello(request):
-    result = {}
-    result['result'] = 'users hello' #
-    return JsonResponse(result)
-
-def ya(request):
-    result = {}
-    result['result'] = 'users ya' #
-    return JsonResponse(result)
-
-def signIn(request):
+def login(request):
     # request
     result = {'result': 0}
     data = json.loads(request.body.decode("utf-8"))
     userId = data['userId']
     password = data['password']
     # query
-    # players = Player.objects.filter(Email = email,Password = password)
-    # response
     try:
-        u = UserAccount.objects.get(UserID = userId,Password = password)
+        u = UserAccount.objects.get(
+            UserID=userId,
+            Password=password
+        )
         result['userId'] = u.UserID
         result['email'] = u.EMail
         result['userName'] = u.UserName
-        #result['userPicture'] = u.UserPicture
-        #result['modifyDate'] = str(u.ModifyDate)
+        result['userPicture'] = u.UserPicture
+        result['modifyDate'] = str(u.ModifyDate)
         result['result'] = 1
     except Exception as e:
         result['message'] = str(e)
     return JsonResponse(result)
 
 def signUp(request):
-
+    # request
     result = {'result': 0}
     data = json.loads(request.body.decode("utf-8"))
     userId = data['userId']
@@ -56,8 +47,14 @@ def signUp(request):
     # query
     try:
         if UserAccount.objects.filter(EMail = email).count() == 0 :
-            now = datetime.datetime.now().replace(microsecond=0)
-            UserAccount.objects.create(UserID=userId,EMail=email,Password=password,UserName=userName)
+            UserAccount.objects.create(
+                UserID = userId,
+                EMail = email,
+                Password = password,
+                UserName = userName,
+                CreateDate = now(),
+                ModifyDate = now()
+            )
             result['result'] = 1
     except Exception as e:
         result['message'] = str(e)
@@ -65,7 +62,7 @@ def signUp(request):
 
 
 def updatePassword(request):
-     # request
+    # request
     result = {'result': 0}
     data = json.loads(request.body.decode("utf-8"))
     userId = data['userId']
@@ -73,8 +70,27 @@ def updatePassword(request):
     newPassword = data['newPassword']
     # query
     try:
-        u = UserAccount.objects.get(UserID=userId,Password=oldPassword)
+        u = UserAccount.objects.get(
+            UserID = userId,
+            Password = oldPassword
+        )
         u.Password = newPassword
+        u.save()
+        result['result'] = 1
+    except Exception as e:
+        result['message'] = str(e)
+    return JsonResponse(result)
+
+def updatePicture(request):
+    # request
+    result = {'result': 0}
+    data = json.loads(request.body.decode("utf-8"))
+    userId = data['userId']
+    picturePath = data['picturePath']
+    # query
+    try:
+        u = UserAccount.objects.get(UserID=userId)
+        u.UserPicture = picturePath
         u.save()
         result['result'] = 1
     except Exception as e:
@@ -84,15 +100,19 @@ def updatePassword(request):
 def createFriend(request):
     result = {'result': 0}
     data = json.loads(request.body.decode("utf-8"))
-    createId = data['createId']
+    userId = data['userId']
     friendId = data['friendId']
     # query
     try: 
-        u = UserAccount.objects.get(UserID = createId)
+        u = UserAccount.objects.get(UserID = userId)
         uf = UserAccount.objects.get(UserID = friendId)
-        now = datetime.datetime.now().replace(microsecond=0)
-        UserFriend.objects.create(CreateUser = u,FriendUser = uf,CreateDate = now)
-        result['result'] = 1
+        if UserFriend.objects.filter(CreateUser = u, FriendUser = uf).count() == 0 :
+            UserFriend.objects.create(
+                CreateUser = u,
+                FriendUser = uf,
+                CreateDate = now()
+            )
+            result['result'] = 1
     except Exception as e:
         result['message'] = str(e)
     return JsonResponse(result)
@@ -100,13 +120,16 @@ def createFriend(request):
 def deleteFriend(request):
     result = {'result': 0}
     data = json.loads(request.body.decode("utf-8"))
-    createId = data['createId']
+    userId = data['userId']
     friendId = data['friendId']
     # query
     try: 
-        u = UserAccount.objects.get(UserID = createId)
+        u = UserAccount.objects.get(UserID = userId)
         uf = UserAccount.objects.get(UserID = friendId)
-        UserFriend.objects.get(CreateUser = u,FriendUser = uf).delete()
+        UserFriend.objects.get(
+            CreateUser = u,
+            FriendUser = uf
+        ).delete()
         result['result'] = 1
     except Exception as e:
         result['message'] = str(e)
@@ -215,7 +238,7 @@ def getChatList(request):
         result['message'] = str(e)
     return JsonResponse(result)    
 
-
-
+def now():
+    return datetime.datetime.now().replace(microsecond=0)
 
 

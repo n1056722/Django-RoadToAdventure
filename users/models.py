@@ -3,19 +3,17 @@ from __future__ import unicode_literals
 
 from django.db import models
 from authority.models import *
+from datetime import datetime
 
 # Create your models here.
 class UserAccount(models.Model):
     UserID = models.CharField(primary_key=True,max_length=20)
     UserName = models.CharField(max_length=50)
-    #UserPicture = models.CharField(max_length=300,default="")
-    #UserRole = models.ForeignKey(UserRole,on_delete=models.PROTECT, related_name='UserAccount_UserRole')
-    EMail = models.CharField(max_length=200,unique=True)
+    UserPicture = models.CharField(max_length=100, blank=True)
+    EMail = models.CharField(max_length=200, unique=True)
     Password = models.CharField(max_length=50)
-    #LastPassword = models.CharField(max_length=50)
-    #LastLoginTime = models.DateTimeField()
-    #IsEnabled = models.CharField(max_length=1)
-    #IsVerification = models.CharField(max_length=1)
+    CreateDate = models.DateTimeField()
+    ModifyDate = models.DateTimeField()
 
     def __str__(self):
         return self.UserName
@@ -39,3 +37,5 @@ class UserFriend(models.Model):
     def __str__(self):
         return self.CreateUser.UserName + '-' + self.FriendUser.UserName
         
+def now():
+    datetime.datetime.now().replace(microsecond=0)
