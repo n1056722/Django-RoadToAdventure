@@ -25,18 +25,22 @@ from personalJourneys import views as views_personalJourney
 urlpatterns = [
     url(r'^$', views_users.index, name='index'),
     url(r'^Picture/Create', views_users.createPicture, name='users_create'),
+
     url(r'^User/Login', views_users.login, name='users_login'),
     url(r'^User/SignUp', views_users.signUp, name='users_signUp'),
     url(r'^User/UpdatePassword', views_users.updatePassword, name='users_updatePassword'),
     url(r'^User/UpdatePicture', views_users.updatePicture, name='users_updatePicture'),
+
     url(r'^Friend/Create', views_users.createFriend, name='users_createFriend'),
     url(r'^Friend/Delete', views_users.deleteFriend, name='users_deleteFriend'),
     url(r'^Friend/GetStrangerList', views_users.getStrangerList, name='users_getStrangerList'),
     url(r'^Friend/GetFriendList', views_users.getFriendList, name='users_getFriendList'),
+
     url(r'^FriendChat/Create', views_users.createFriendChat, name='users_createFriendChat'),
     url(r'^FriendChat/GetList', views_users.getChatList, name='users_getChatList'),
-    url(r'^PersonalJourney/Create', views_personalJourney.Create, name='personalJourneys_Create'),
-    #url(r'^PersonalJourney/Update', views_personalJourneys.Update, name='personalJourneys_Update'),
-    #url(r'^PersonalJourney/getList', views_personalJourneys.getList, name='personalJourneys_getList'),
+
+    url(r'^PersonalJourney/Create', views_personalJourney.createPersonalJourney, name='personalJourneys_createPersonalJourney'),
+    url(r'^PersonalJourney/Update', views_personalJourney.updatePersonalJourney, name='personalJourneys_updatePersonalJourney'),
+
     url(r'^admin/', admin.site.urls),
 ] + static('/images/', document_root = settings.MEDIA_ROOT)

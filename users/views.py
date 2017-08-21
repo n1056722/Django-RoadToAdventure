@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from core.settings import MEDIA_ROOT, IMAGE_USER_URL, IMAGE_PERSONAL_JOURNEY_URL, IMAGE_GROUP_JOURNEY_URL, IMAGE_OTHER_URL
+from core.settings import IMAGE_ROOT, IMAGE_USER_URL, IMAGE_PERSONAL_JOURNEY_URL, IMAGE_GROUP_JOURNEY_URL, IMAGE_OTHER_URL
 from users.models import *
 from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse,HttpResponse
+from django.http import JsonResponse, HttpResponse
 import datetime
 import json
 import os

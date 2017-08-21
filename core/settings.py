@@ -125,7 +125,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 # Image files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+IMAGE_ROOT = os.path.join(BASE_DIR, 'images')
 IMAGE_USER_URL = 'users'
 IMAGE_PERSONAL_JOURNEY_URL = 'personalJourney'
 IMAGE_GROUP_JOURNEY_URL = 'groupJourney'

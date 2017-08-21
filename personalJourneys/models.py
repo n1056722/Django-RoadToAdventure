@@ -7,6 +7,17 @@ from users.models import *
 # Create your models here.
 
 class PersonalJourney(models.Model):
+    STATUS_CHOICES = (
+        ('0', 'planning'),
+        ('1', 'riding'),
+        ('2', 'finish'),
+    )
+
+    IS_OPEN_CHOICES = (
+        ('0', 'private'),
+        ('1', 'public'),
+    )
+
     PersonalJourneyID = models.AutoField(primary_key=True)
     PersonalJourneyName = models.CharField(max_length=50)
     PersonalJourneyContent = models.TextField()
@@ -15,8 +26,9 @@ class PersonalJourney(models.Model):
     IsOpen = models.CharField(max_length=1)
     StartTime = models.DateTimeField()
     EndTime = models.DateTimeField()
-    CreateUser = models.ForeignKey(UserAccount,on_delete=models.PROTECT,related_name='PersonalJourney_CreateUser')
+    CreateUser = models.ForeignKey(UserAccount, on_delete=models.PROTECT, related_name='PersonalJourney_CreateUser')
     CreateDate = models.DateTimeField()
+    ModifyDate = models.DateTimeField()
    
     def __str__(self):
         return self.PersonalJourneyName
