@@ -123,3 +123,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Image files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+IMAGE_USER_URL = 'users'
+IMAGE_PERSONAL_JOURNEY_URL = 'personalJourney'
+IMAGE_GROUP_JOURNEY_URL = 'groupJourney'
+IMAGE_OTHER_URL = 'other'

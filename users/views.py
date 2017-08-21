@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from core.settings import MEDIA_ROOT, IMAGE_USER_URL, IMAGE_PERSONAL_JOURNEY_URL, IMAGE_GROUP_JOURNEY_URL, IMAGE_OTHER_URL
 from users.models import *
 from django.shortcuts import render
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse,HttpResponse
 import datetime
 import json
 import os
+
 
 # Create your views here.
 
@@ -234,7 +235,35 @@ def getChatList(request):
         result['message'] = str(e)
     return JsonResponse(result)    
 
+def getPath(x):
+    return {
+        "0": IMAGE_USER_URL,
+        "1": IMAGE_PERSONAL_JOURNEY_URL,
+        "2": IMAGE_GROUP_JOURNEY_URL
+    }.get(x, IMAGE_OTHER_URL)
+
+def createPicture(request):
+    # request
+    result = {'result': 0}
+    fileName = request.POST.get('fileName')
+    subFileName = request.POST.get('subFileName')
+    mFile = request.FILES.get('file')
+    mType = request.POST.get('type')
+
+    if mFile is not None:
+        try:
+            completeFileName = fileName + '.' + subFileName
+            path = getPath(mType)
+            with open(os.path.join(MEDIA_ROOT, path, completeFileName), 'wb+') as destination:
+                for chunk in mFile.chunks():
+                    destination.write(chunk)
+            
+            result['picturePath'] = completeFileName
+            result['fullPath'] = 'http://' + request.get_host() + '/images/' + path + '/' + completeFileName
+            result['result'] = 1
+        except Exception as e:
+            result['message'] = str(e)
+    return JsonResponse(result)
+
 def now():
     return datetime.datetime.now().replace(microsecond=0)
-
-
