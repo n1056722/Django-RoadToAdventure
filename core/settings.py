@@ -25,8 +25,7 @@ SECRET_KEY = 'rgf49)z+ieh3iyvog3u&@9$-$v-n5z&gmw6n9e!i&2=-*3eg69'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.192.225']
 
 # Application definition
 
@@ -37,11 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'authority',
+    'authority',
     'users',
     'personalJourneys',
     'groups',
-    #'groupJourneys',
+    'groupJourneys',
 ]
 
 MIDDLEWARE = [
@@ -80,8 +79,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'roadtoadventure',
+        'USER': 'root',
+        'PASSWORD': 'gameforgolf',
+        'HOST': '127.0.0.1',
+        'PORT': '',   
     }
 }
 

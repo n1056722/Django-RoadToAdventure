@@ -5,13 +5,13 @@ from django.db import models
 from users.models import *
 # Create your models here.
 
-class Group(models.Model):
+class ROAGroup(models.Model):
     GroupID = models.AutoField(primary_key = True)
     GroupName = models.CharField(max_length = 50)
     GroupPicture = models.CharField(max_length = 100, blank = True)
-    CreateUser = models.ForeignKey(UserAccount, on_delete = models.PROTECT, related_name = 'Group_CreateUser')
+    CreateUser = models.ForeignKey(UserAccount, on_delete = models.PROTECT, related_name = 'ROAGroup_CreateUser')
     CreateDate = models.DateTimeField()
-    ModifyUser = models.ForeignKey(UserAccount, on_delete = models.PROTECT, related_name = 'Group_ModifyUser')
+    ModifyUser = models.ForeignKey(UserAccount, on_delete = models.PROTECT, related_name = 'ROAGroup_ModifyUser')
     ModifyDate = models.DateTimeField()
 
     def __str__(self):
@@ -27,7 +27,7 @@ class GroupRole(models.Model):
 class UserInGroup(models.Model):
     UserInGroupID = models.AutoField(primary_key = True)
     User = models.ForeignKey(UserAccount, on_delete = models.PROTECT, related_name = 'UserInGroup_User')
-    Group = models.ForeignKey(Group, on_delete = models.PROTECT, related_name = 'UserInGroup_Group')
+    Group = models.ForeignKey(ROAGroup, on_delete = models.PROTECT, related_name = 'UserInGroup_Group')
     GroupRole = models.ForeignKey(GroupRole, on_delete = models.PROTECT, related_name = 'UserInGroup_GroupRole')
 
     def __str__(self):
@@ -35,7 +35,7 @@ class UserInGroup(models.Model):
 
 class GroupChat(models.Model):
     GroupChatID = models.AutoField(primary_key = True)
-    Group = models.ForeignKey(Group, on_delete = models.PROTECT, related_name = 'GroupChat_Group')
+    Group = models.ForeignKey(ROAGroup, on_delete = models.PROTECT, related_name = 'GroupChat_Group')
     User = models.ForeignKey(UserAccount, on_delete = models.PROTECT, related_name = 'GroupChat_User')
     Content = models.CharField(max_length = 50, blank = True)
     CreateDate = models.DateTimeField()

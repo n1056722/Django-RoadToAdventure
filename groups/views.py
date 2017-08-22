@@ -19,7 +19,7 @@ def createGroup(request):
     try:
         with transaction.atomic():
             u = UserAccount.objects.get(UserID = userId)
-            g = Group.objects.create(
+            g = ROAGroup.objects.create(
                 GroupName = name,
                 GroupPicture = picturePath,
                 CreateUser = u,
@@ -49,7 +49,7 @@ def updateGroup(request):
     # query
     try:
         u = UserAccount.objects.get(UserID = userId)
-        g = Group.objects.get(GroupID = groupId)
+        g = ROAGroup.objects.get(GroupID = groupId)
         g.GroupName = name
         g.GroupPicture = picturePath
         g.ModifyUser = u
@@ -87,7 +87,7 @@ def getGroup(request):
     groupId = data['groupId']
     # query
     try:
-        g = Group.objects.get(GroupID = groupId)
+        g = ROAGroup.objects.get(GroupID = groupId)
         result['groupId'] = g.GroupID
         result['name'] = g.GroupName
         result['picturePath'] = g.GroupPicture
@@ -117,7 +117,7 @@ def createGroupUser(request):
     # query
     try:
         tu = UserAccount.objects.get(UserID = targetUserId)
-        g = Group.objects.get(GroupID = groupId)
+        g = ROAGroup.objects.get(GroupID = groupId)
         if UserInGroup.objects.filter(User = tu, Group = g).count() == 0:
             gr = GroupRole.objects.get(GroupRoleID = groupRoleId)
             UserInGroup.objects.create(
@@ -173,7 +173,7 @@ def createGroupChat(request):
     content = data['content']
     # query
     try:
-        g = Group.objects.get(GroupID = groupId)
+        g = ROAGroup.objects.get(GroupID = groupId)
         u = UserAccount.objects.get(UserID = userId)
         GroupChat.objects.create(
             Group = g,
