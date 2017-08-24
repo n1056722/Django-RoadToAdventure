@@ -4,14 +4,16 @@ from core.settings import IMAGE_ROOT, IMAGE_USER_URL, IMAGE_PERSONAL_JOURNEY_URL
 from users.models import *
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
+from django.core.mail import EmailMessage
 import datetime
 import json
 import os
+from random import randint
 
 
 # Create your views here.
 
-def index(request):
+def index(request):    
     return HttpResponse("Home")
 
 def login(request):
@@ -91,6 +93,75 @@ def updatePicture(request):
     try:
         u = UserAccount.objects.get(UserID=userId)
         u.UserPicture = picturePath
+        u.save()
+        result['result'] = 1
+    except Exception as e:
+        result['message'] = str(e)
+    return JsonResponse(result)
+
+def forgetPassword(request):
+    # request
+    result = {'result': 0}
+    data = json.loads(request.body.decode("utf-8"))
+    userId = data['userId']
+    email = data['email']
+    # query
+    try:
+        u = UserAccount.objects.get(
+            UserID = userId,
+            EMail = email
+        )
+        u.VerificationCode = getVerificationCode()
+        u.save()
+        email = EmailMessage(
+            'Hello',
+            'Your verificationCode is ' + u.VerificationCode,
+            to=[email]
+        )
+        email.send()
+        result['result'] = 1
+    except Exception as e:
+        result['message'] = str(e)
+    return JsonResponse(result)
+
+def getVerificationCode():
+    code = ''
+    for i in range(6):
+        code += str(randint(1, 9))
+    return code
+
+def verifyCode(request):
+    # request
+    result = {'result': 0}
+    data = json.loads(request.body.decode("utf-8"))
+    userId = data['userId']
+    verificationCode = data['verificationCode']
+    # query
+    try:
+        u = UserAccount.objects.get(
+            UserID = userId,
+            VerificationCode = verificationCode
+        )
+        result['result'] = 1
+    except Exception as e:
+        result['message'] = str(e)
+    return JsonResponse(result)
+
+def resetPassword(request):
+    # request
+    result = {'result': 0}
+    data = json.loads(request.body.decode("utf-8"))
+    userId = data['userId']
+    verificationCode = data['verificationCode']
+    newPassword = data['newPassword']
+    # query
+    try:
+        u = UserAccount.objects.get(
+            UserID = userId,
+            VerificationCode = verificationCode
+        )
+        u.Password = newPassword
+        u.VerificationCode = getVerificationCode()
         u.save()
         result['result'] = 1
     except Exception as e:

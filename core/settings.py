@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 #
 import os
+from .secret import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -80,11 +81,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'roadtoadventure',
-        'USER': 'root',
-        'PASSWORD': 'gameforgolf',
-        'HOST': '127.0.0.1',
-        'PORT': '',   
+        'NAME': mysql['NAME'],
+        'USER': mysql['USER'],
+        'PASSWORD': mysql['PASSWORD'],
+        'HOST': mysql['HOST'],
+        'PORT': mysql['PORT'],   
     }
 }
 
@@ -133,3 +134,11 @@ IMAGE_USER_URL = 'users'
 IMAGE_PERSONAL_JOURNEY_URL = 'personalJourney'
 IMAGE_GROUP_JOURNEY_URL = 'groupJourney'
 IMAGE_OTHER_URL = 'other'
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = email['HOST']
+EMAIL_HOST_USER = email['USER']
+EMAIL_HOST_PASSWORD = email['PASSWORD']
+EMAIL_USE_TLS = email['USE_TLS']
+EMAIL_PORT = email['PORT']

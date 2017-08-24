@@ -29,7 +29,9 @@ urlpatterns = [
     url(r'^User/Login', views_users.login, name='users_login'),
     url(r'^User/SignUp', views_users.signUp, name='users_signUp'),
     url(r'^User/UpdatePassword', views_users.updatePassword, name='users_updatePassword'),
-    url(r'^User/UpdatePicture', views_users.updatePicture, name='users_updatePicture'),
+    url(r'^User/ForgetPassword', views_users.forgetPassword, name='users_forgetPassword'),
+    url(r'^User/VerifyCode', views_users.verifyCode, name='users_verifyCode'),
+    url(r'^User/ResetPassword', views_users.resetPassword, name='users_resetPassword'),
 
     url(r'^Friend/Create', views_users.createFriend, name='users_createFriend'),
     url(r'^Friend/Delete', views_users.deleteFriend, name='users_deleteFriend'),

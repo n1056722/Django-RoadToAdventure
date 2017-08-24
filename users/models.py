@@ -10,8 +10,9 @@ class UserAccount(models.Model):
     UserID = models.CharField(primary_key = True, max_length = 20)
     UserName = models.CharField(max_length = 50)
     UserPicture = models.CharField(max_length = 100, blank = True)
-    EMail = models.CharField(max_length = 200, unique = True)
-    Password = models.CharField(max_length = 50)
+    EMail = models.CharField(max_length = 100, unique = True)
+    Password = models.CharField(max_length = 100)
+    VerificationCode = models.CharField(max_length = 10, blank = True)
     CreateDate = models.DateTimeField()
     ModifyDate = models.DateTimeField()
 
