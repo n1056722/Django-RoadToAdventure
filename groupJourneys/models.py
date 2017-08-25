@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 
 from django.db import models
 from groups.models import *
-
+from users.models import *
 # Create your models here.
-"""
+
 class GroupJourney(models.Model):
     GroupJourneyID = models.IntegerField(primary_key=True)
     Group = models.ForeignKey(Group,primary_key=True,on_delete=models.PROTECT)
@@ -18,4 +18,4 @@ class GroupJourney(models.Model):
 
     def __str__(self):
         return self.GroupJourneyName
-"""
+

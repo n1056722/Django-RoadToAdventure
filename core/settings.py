@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'users',
     'personalJourneys',
     'groups',
-    #'groupJourneys',
+    'groupJourneys',
 ]
 
 MIDDLEWARE = [

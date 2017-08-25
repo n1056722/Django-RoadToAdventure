@@ -21,6 +21,7 @@ from django.contrib import admin
 from users import views as views_users
 from personalJourneys import views as views_personalJourney
 from groups import views as views_groups
+from groupJourneys import views as views_groupJourneys
 urlpatterns = [
     url(r'^$', views_users.index, name='index'),
     url(r'^admin/', admin.site.urls),
@@ -30,6 +31,7 @@ urlpatterns = [
     url(r'^User/SignUp', views_users.signUp, name='users_signUp'),
     url(r'^User/UpdatePassword', views_users.updatePassword, name='users_updatePassword'),
     url(r'^User/UpdatePicture', views_users.updatePicture, name='users_updatePicture'),
+    #url(r'^User/ForgetPassword', views_users.forgetPassword, name='users_forgetPassword'),
 
     url(r'^Friend/Create', views_users.createFriend, name='users_createFriend'),
     url(r'^Friend/Delete', views_users.deleteFriend, name='users_deleteFriend'),
@@ -56,5 +58,12 @@ urlpatterns = [
     url(r'^GroupUser/Delete', views_groups.deleteGroupUser, name='groups_deleteGroupUser'),
     url(r'^GroupChat/Create', views_groups.createGroupChat, name='groups_createGroupChat'),
     url(r'^GroupChat/GetList', views_groups.getGroupChatList, name='groups_getGroupChatList'),
+
+    url(r'^GroupJourney/Create', views_groupJourneys.createGroupJourney, name='groupJourneys_createGroupJourney'),
+    url(r'^GroupJourney/Update', views_groupJourneys.updateGroupJourney, name='groupJourneys_updateGroupJourney'),
+    url(r'^GroupJourney/GetList', views_groupJourneys.getGroupJourneyList, name='groupJourneys_getGroupJourneyList'),
+    url(r'^GroupJourney/Get', views_groupJourneys.getGroupJourney, name='groupJourneys_getGroupJourney'),
+    url(r'^GroupJourneyDetail/Create', views_groupJourneys.createGroupJourneyDetail, name='groupJourneys_createGroupJourneyDetail'),
+    url(r'^GroupJourneyDetail/GetAll', views_groupJourneys.getGroupJourneyAll, name='groupJourneys_getGroupJourneyAll'),
 
 ] + static('/images/', document_root = settings.MEDIA_ROOT)

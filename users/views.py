@@ -266,3 +266,10 @@ def createPicture(request):
 
 def now():
     return datetime.datetime.now().replace(microsecond = 0)
+"""
+def forgetPassword(request):
+    result = {'result':0}
+    data = json.loads(request.body.decode("utf-8"))
+    userId = data['userId']
+    email = data['email']
+"""    
